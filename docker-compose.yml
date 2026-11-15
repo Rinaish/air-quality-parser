@@ -1,0 +1,22 @@
+services:
+  collector:
+    build:
+      context: .
+      dockerfile: aqi_parser/Dockerfile
+    container_name: aqi-parser-container
+    init: true
+    environment:
+      - TZ=Europe/Moscow
+    env_file:
+      - .env
+    volumes:
+      - aqi_data:/app/data
+    restart: unless-stopped
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+volumes:
+  aqi_data:
