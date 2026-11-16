@@ -18,6 +18,3 @@ migrate_backup
 
 migrate.py
 *.sh
-
-tests
-conftest.py
