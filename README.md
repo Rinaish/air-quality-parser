@@ -4,11 +4,12 @@
 [![Docker](https://img.shields.io/badge/Docker-2496ED?logo=docker&logoColor=fff)](#)
 ![MIT License](https://img.shields.io/badge/MIT%20License-FFFAFA)
 
-### Пайплайн для автоматизации сбора и анализа дневных данных состава и качества воздуха с AQICN API.
+### ETL-система мониторинга качества воздуха (AQICN API)
 
-Парсер собирает данные по расписанию каждый час с 9:00 до 21:00 с 30 официальных и 50 частных станций измерения AQI (Air Quality Index).<br>
-Станции получены в пределах заданного bbox в запросе. Border Box для Москвы: `latlng=55.57,37.35,55.92,37.85`.<br>
-Подробные свежие данные измерения получены на основе `uid` каждой станции.
+- Сбор данных с 30 официальных и 50 частных станций измерения AQI (Air Quality Index) по расписанию каждый час с 9:00 до 21:00.
+- Нормализация данных, разделение на официальные/частные станции, хеширование координат для связности.
+- Загрузка в SQLite с проверкой уникальности.
+- Логирование ошибок, автоматический перезапуск при сбоях, тесты на корректность парсинга.
 
 #### База данных
 
@@ -28,6 +29,8 @@
 AQICN API --> collector (Supercronic) --> SQLite (volume)
 
 ## Примеры
+_Станции получены в пределах заданного bbox в запросе. Border Box для Москвы: `latlng=55.57,37.35,55.92,37.85`.<br>_
+
 
 ![Логи парсера](images/logs.png)
 
@@ -39,7 +42,7 @@ git clone https://github.com/Rinaish/air-quality-parser.git
 cd air-quality-parser
 ```
 
-**2. Зарегистрируйся на [AQICN API Tocken](https://aqicn.org/data-platform/token/ru/) и получи токен API**
+**2. Зарегистрируйся на [AQICN API Token](https://aqicn.org/data-platform/token/ru/) и получи токен API**
 
 **3. Настрой токен в .env**
 ```bash
